@@ -7,13 +7,15 @@ def makeModel():
     imdb = tf.keras.datasets.imdb
 
     x_train,y_train,x_test,y_test = makeMnistData(mnist)
+    print(y_train)
     dataShape = x_train[1].shape
 
     #showImage(x_train,y_train,True)
 
     layerData=[
         tf.keras.layers.Flatten(input_shape=dataShape),
-        tf.keras.layers.Dense(512, activation=tf.nn.relu),
+        tf.keras.layers.Dense(206, activation=tf.nn.relu),
+        tf.keras.layers.Dense(206, activation=tf.nn.relu),
         tf.keras.layers.Dense(10, activation=tf.nn.softmax)
     ]
 
@@ -22,8 +24,12 @@ def makeModel():
     opt = tf.keras.optimizers.SGD()
     
     model = makeModelShape(layerList=layer,optimizer=opt)
-
     trainedModel = trainModel(model,x_train,y_train,x_test,y_test)
+
+
+def matrixify(lst, width, height):
+    for y in range(height):
+        yield lst[y*width:(y+1)*width]
 
 
 def showImage(x_train,y_train,flag):
